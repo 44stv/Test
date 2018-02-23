@@ -46,14 +46,12 @@ public class GetHIBP {
         System.out.println(sha1);
         String trimmedSha1 = sha1.substring(0,5);
         System.out.println(trimmedSha1);
-
         String fullURL = "https://api.pwnedpasswords.com/range/"+trimmedSha1;
 
         try {
             URL url = new URL(fullURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
             String output;
