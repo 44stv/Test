@@ -26,7 +26,6 @@ public class GetHIBP {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
         return byteArray2Hex(hashedPswd);
     }
 
@@ -64,7 +63,6 @@ public class GetHIBP {
                 writer.print(trimmedSha1);
                 writer.println(output);
             }
-
             conn.disconnect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
