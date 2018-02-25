@@ -7,7 +7,6 @@ public class Main {
         FootballPlayer joe = new FootballPlayer("Joe");
         FootballPlayer max = new FootballPlayer("max");
         BaseballPlayer pat = new BaseballPlayer("Pat");
-        AmericanFootballPlayer tim = new AmericanFootballPlayer("Tim");
 
         Team<FootballPlayer> mu = new Team<>("Manchester United");
         mu.addPlayer(joe);
@@ -17,16 +16,16 @@ public class Main {
         Team<BaseballPlayer> baseballTeam = new Team<>("Baseball Team");
         baseballTeam.addPlayer(pat);
 
-        Team<AmericanFootballPlayer> americanFootballTeam =
-                new Team<>("American football team");
-        americanFootballTeam.addPlayer(tim);
 
         Team<FootballPlayer> chelsea = new Team<>("Chelsea");
         chelsea.addPlayer(max);
 
+        League<Team<FootballPlayer>> epl = new League<>("EPL");
+        epl.addTeam(mu);
+        epl.addTeam(chelsea);
         mu.matchResult(chelsea, 2,1);
-        System.out.println(mu.ranking());
-        System.out.println(chelsea.ranking());
-
+        mu.matchResult(chelsea, 3,2);
+        mu.matchResult(chelsea, 0,0);
+        epl.showLeagueStanding();
     }
 }

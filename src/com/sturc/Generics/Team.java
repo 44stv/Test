@@ -2,7 +2,7 @@ package com.sturc.Generics;
 
 import java.util.ArrayList;
 
-public class Team<T extends Player> {
+public class Team<T extends Player> implements Comparable<Team<T>> {
 
     private String name;
     private int played = 0;
@@ -55,6 +55,18 @@ public class Team<T extends Player> {
             System.out.println(this.getName() + message + opponent.getName());
             opponent.matchResult(null, theirScore, ourScore);
         }
+    }
+
+    @Override
+    public int compareTo(Team<T> opponent) {
+        if (this.ranking() > opponent.ranking()){
+            return -1;
+        } else if (this.ranking() == opponent.ranking()){
+            return 0;
+        } else {
+            return 1;
+        }
+        //return Integer.compare(opponent.ranking(), this.ranking());
     }
 
     public int ranking(){
