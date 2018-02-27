@@ -5,7 +5,7 @@ import java.util.*;
 public class Theatre {
 
     private final String name;
-    private List<Seat> seats = new ArrayList<>();
+    public List<Seat> seats = new ArrayList<>();
 
 
     public Theatre(String name, int numRows, int seatPerRow) {
@@ -13,15 +13,15 @@ public class Theatre {
 
         int lastRow = 'A' + (numRows - 1);
 
-        System.out.println("Available seats:");
+        //System.out.println("Available seats:");
         for (char row = 'A'; row <= lastRow; row++){
-            System.out.print(row + ": ");
+            //System.out.print(row + ": ");
             for (int seatNum = 1; seatNum <= seatPerRow; seatNum++){
                 Seat seat = new Seat(row + String.format("%02d", seatNum));
                 seats.add(seat);
-                System.out.print(seat.getSeatNumber() + " ");
+                //System.out.print(seat.getSeatNumber() + " ");
             }
-            System.out.println();
+            //System.out.println();
         }
 
     }
@@ -59,7 +59,7 @@ public class Theatre {
         return name;
     }
 
-    private class Seat implements Comparable<Seat>{
+    public class Seat implements Comparable<Seat>{
 
         private final String seatNumber;
         private boolean reserved = false;
