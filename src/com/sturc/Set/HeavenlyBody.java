@@ -4,27 +4,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class HeavenlyBody {
+public abstract class HeavenlyBody {
 
-    private final String name;
+    //private final String name;
     private final double orbitalPeriod;
     private final Set<HeavenlyBody> satellites;
     private final Key key;
 
 
     public HeavenlyBody(String name, double orbitalPeriod, bodyType bodyType) {
-        this.name = name;
         this.orbitalPeriod = orbitalPeriod;
         this.satellites = new HashSet<>();
         this.key = new Key(name, bodyType);
     }
 
-    public boolean addSatellites(HeavenlyBody moon) {
+    public boolean addSatellite(HeavenlyBody moon) {
         return this.satellites.add(moon);
-    }
-
-    public String getName() {
-        return name;
     }
 
     public double getOrbitalPeriod() {
@@ -39,8 +34,12 @@ public class HeavenlyBody {
         return new HashSet<>(this.satellites);
     }
 
+    public static Key createKey(String name, bodyType bodyType) {
+        return new Key(name, bodyType);
+    }
+
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
 
         if (this == obj) {
             return true;
@@ -54,8 +53,17 @@ public class HeavenlyBody {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return this.key.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "HeavenlyBody{" +
+                "name='" + key.name + '\'' +
+                ", orbitalPeriod=" + orbitalPeriod +
+                ", bodyType=" + key.bodyType +
+                '}';
     }
 
     public static final class Key {
@@ -63,7 +71,7 @@ public class HeavenlyBody {
         private String name;
         private bodyType bodyType;
 
-        public Key(String name, com.sturc.Set.bodyType bodyType) {
+        private Key(String name, com.sturc.Set.bodyType bodyType) {
             this.name = name;
             this.bodyType = bodyType;
         }
@@ -80,7 +88,7 @@ public class HeavenlyBody {
         @Override
         public int hashCode() {
 
-            System.out.println("hashcode() in Key class is called.");
+            //System.out.println("hashcode() in Key class is called.");
 
             final int prime = 31;
             int result = 1;
@@ -94,7 +102,7 @@ public class HeavenlyBody {
         @Override
         public boolean equals(Object obj) {
 
-            System.out.println("equal() in Key class is called.");
+            //System.out.println("equal() in Key class is called.");
 
             if (this == obj)  {
                 return true;
@@ -116,5 +124,9 @@ public class HeavenlyBody {
             return false;
         }
 
+        @Override
+        public String toString() {
+            return this.name + ": " + this.getBodyType();
+        }
     }
 }
