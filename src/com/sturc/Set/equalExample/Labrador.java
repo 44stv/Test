@@ -1,4 +1,6 @@
-package com.sturc.Set;
+package com.sturc.Set.equalExample;
+
+import com.sturc.Set.equalExample.Dog;
 
 public class Labrador extends Dog {
 
