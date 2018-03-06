@@ -1,7 +1,7 @@
 package com.sturc.Maps;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StockList {
@@ -9,7 +9,7 @@ public class StockList {
     private final Map<String, StockItem> list;
 
     public StockList() {
-        this.list = new HashMap<>();
+        this.list = new LinkedHashMap<>();
     }
 
     public int addStock(StockItem item) {
@@ -57,9 +57,9 @@ public class StockList {
             double itemValue = stockItem.getPrice() * stockItem.quantityInStock();
 
             result = result + stockItem + ". There are " + stockItem.quantityInStock() +
-                    " in stock. Value of items: " + itemValue + "\n";
+                    " in stock. Value of items: " + String.format("%.2f", itemValue) + "\n";
             totalCost += itemValue;
         }
-        return result + "Total stock value: " + totalCost;
+        return result + "Total stock value: " + String.format("%.2f", totalCost);
     }
 }
