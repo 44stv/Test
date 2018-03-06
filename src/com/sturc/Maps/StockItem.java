@@ -35,7 +35,8 @@ public class StockItem implements Comparable<StockItem> {
         final int primeNumber = 31;
         int result = 1;
 
-        result = result * primeNumber + this.quantityStock;
+        // mistake to create hashcode using parameter, which could change
+        //result = result * primeNumber + this.quantityStock;
         result = result * primeNumber + this.name.hashCode();
 
         return result;
