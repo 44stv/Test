@@ -19,10 +19,10 @@ public class StockItem implements Comparable<StockItem> {
         this.quantityInStock = quantityInStock;
     }
 
-    public void setPrice(double price) {
+/*    public void setPrice(double price) {
         if (price > 0.0)
             this.price = price;
-    }
+    }*/
 
     public void adjustStock(int quantity) {
         int newQuantity = this.quantityInStock + quantity;
@@ -31,22 +31,19 @@ public class StockItem implements Comparable<StockItem> {
         }
     }
 
-    public int availableToReserve() {
-        return quantityInStock - reserved;
-    }
 
-    public int reserve(int quantityToReserve) {
-        if ((quantityToReserve <= availableToReserve()) && (quantityToReserve > 0)) {
-            this.reserved += quantityToReserve;
-            return quantityToReserve;
+    public int reserveStock(int quantity) {
+        if (quantity <= availableQuantity()) {
+            reserved += quantity;
+            return quantity;
         }
         return 0;
     }
 
-    public int unreserve(int quantityToUnreserve) {
-        if ((quantityToUnreserve <= reserved) && (quantityToUnreserve > 0)) {
-            reserved -= quantityToUnreserve;
-            return quantityToUnreserve;
+    public int unreserveStock(int quantity) {
+        if (quantity <= reserved) {
+            reserved -= quantity;
+            return quantity;
         }
         return 0;
     }
@@ -57,8 +54,11 @@ public class StockItem implements Comparable<StockItem> {
             reserved -= quantity;
             return quantity;
         }
-
         return 0;
+    }
+
+    public int availableQuantity() {
+        return quantityInStock - reserved;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class StockItem implements Comparable<StockItem> {
         int result = 1;
 
         // mistake to create hashcode using parameter, which could change
-        //result = result * primeNumber + this.quantityInStock;
+        //result = result * primeNumber + this.availableQuantity;
         result = result * primeNumber + this.name.hashCode();
 
         return result;
@@ -75,7 +75,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("Entering stockItem.equals()");
+//        System.out.println("Entering stockItem.equals()");
         if (obj == this) {
             return true;
         }
@@ -91,7 +91,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public int compareTo(StockItem o) {
-        System.out.println("Entering stockItem.compareTo()");
+//        System.out.println("Entering stockItem.compareTo()");
         if (this == o) {
             return 0;
         }
@@ -105,7 +105,7 @@ public class StockItem implements Comparable<StockItem> {
 
     @Override
     public String toString() {
-        return this.name + ": price " + this.price;
+        return this.name + ": price " + this.price + ". Reserved: " + this.reserved;
     }
 
     public String getName() {
@@ -114,9 +114,5 @@ public class StockItem implements Comparable<StockItem> {
 
     public double getPrice() {
         return price;
-    }
-
-    public int quantityInStock() {
-        return quantityInStock;
     }
 }

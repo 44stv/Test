@@ -30,6 +30,7 @@ public class Basket {
 
             if (newQuantity > 0) {
                 list.put(item, newQuantity);
+                return quantity;
             } else if (newQuantity == 0) {
                 list.remove(item);
                 return quantity;

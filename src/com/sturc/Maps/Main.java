@@ -20,10 +20,8 @@ public class Main {
         temp = new StockItem("chair", 62.0, 10);
         stockList.addStock(temp);
 
-        temp = new StockItem("cup", 0.50, 200);
+        temp = new StockItem("cup", 0.45, 200);
         stockList.addStock(temp);
-//        temp = new StockItem("cup", 0.45, 7);
-//        stockList.addStock(temp);
 
         temp = new StockItem("door", 72.95, 4);
         stockList.addStock(temp);
@@ -46,39 +44,51 @@ public class Main {
             System.out.println(s);
         }
 
-        Basket basket = new Basket("Basket");
-        sellItem(basket, "car", 1);
-        System.out.println(basket);
+        Basket basket1 = new Basket("Basket1");
+        sellItem(basket1, "car", 1);
+        System.out.println(basket1);
 
-        sellItem(basket, "car", 1);
-        System.out.println(basket);
+        sellItem(basket1, "car", 1);
+        System.out.println(basket1);
 
-        if (sellItem(basket, "car", 1) != 1) {
+        if (sellItem(basket1, "car", 1) != 1) {
             System.out.println("There no more cars in stock.");
         }
-        sellItem(basket, "spanner", 1);
-        System.out.println(basket);
 
-        sellItem(basket, "juice", 4);
-        sellItem(basket, "cup", 12);
-        sellItem(basket, "bread", 1);
-        System.out.println(basket);
-//        System.out.println(stockList);
+        sellItem(basket1, "spanner", 1);
 
-//        temp = new StockItem("pen", 1.12);
-//        stockList.Items().put(temp.getName(), temp);
-//        stockList.Items().get("car").adjustStock(2000);
-//        stockList.get("car").adjustStock(-1000);
-//        System.out.println(stockList);
-//
-//        for (Map.Entry<String, Double> price : stockList.PriceList().entrySet()) {
-//            System.out.println(price.getKey() + " costs " + price.getValue());
-//        }
-        removeItem(basket, "cup", 2);
-        System.out.println(basket);
+        sellItem(basket1, "juice", 4);
+        sellItem(basket1, "cup", 12);
+        sellItem(basket1, "bread", 1);
 
-        checkout(basket);
-        System.out.println(basket);
+        Basket basket2 = new Basket("Basket2");
+        sellItem(basket2, "cup", 100);
+        sellItem(basket2, "juice", 5);
+        removeItem(basket2, "cup", 1);
+        System.out.println(basket2);
+
+        removeItem(basket1, "car", 1);
+        removeItem(basket1, "cup", 9);
+        removeItem(basket1, "car", 1);
+        System.out.println("Cars removed: " + removeItem(basket1, "car", 1));
+
+        System.out.println(basket1);
+
+        //remove all items
+        removeItem(basket1, "bread", 1);
+        removeItem(basket1, "cup", 3);
+        removeItem(basket1, "juice", 4);
+        removeItem(basket1, "cup", 3);
+        System.out.println(basket1);
+
+        System.out.println(basket2);
+        System.out.println(stockList);
+        checkout(basket2);
+        System.out.println(basket2);
+        System.out.println(stockList);
+
+        checkout(basket1);
+        System.out.println(stockList);
     }
 
     private static int sellItem(Basket basket, String item, int quantity) {
@@ -89,20 +99,19 @@ public class Main {
             return 0;
         }
         if (stockList.reserveStock(item, quantity) != 0) {
-            basket.addToBasket(stockItem, quantity);
-            return quantity;
+            return basket.addToBasket(stockItem, quantity);
         }
         return 0;
     }
 
-    private static int removeItem(Basket basket, String itemName, int quantity) {
-        StockItem stockItem = stockList.get(itemName);
+    private static int removeItem(Basket basket, String item, int quantity) {
+        StockItem stockItem = stockList.get(item);
         if (stockItem == null) {
-            System.out.println("We don`t sell " + itemName);
+            System.out.println("We don`t sell " + item);
             return 0;
         }
         if (basket.removeFromBasket(stockItem, quantity) == quantity) {
-            return stockList.unreserveStock(itemName, quantity);
+            return stockList.unreserveStock(item, quantity);
         }
         return 0;
     }
