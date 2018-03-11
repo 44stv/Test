@@ -5,6 +5,7 @@ import static com.sturc.Threads.ThreadColor.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.sturc.Threads.ProducerConsumer.Main.EOF;
@@ -16,14 +17,34 @@ public class Main {
     public static void main(String[] args) {
         List<String> buffer = new ArrayList<>();
         ReentrantLock bufferLock = new ReentrantLock();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
         MyProducer producer = new MyProducer(buffer, ANSI_BLUE, bufferLock);
         MyConsumer consumer1 = new MyConsumer(buffer, ANSI_RED, bufferLock);
         MyConsumer consumer2 = new MyConsumer(buffer, ANSI_PURPLE, bufferLock);
 
-        new Thread(producer).start();
-        new Thread(consumer1).start();
-        new Thread(consumer2).start();
+        executorService.execute(producer);
+        executorService.execute(consumer1);
+        executorService.execute(consumer2);
 
+        Future<String> future = executorService.submit(new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                System.out.println(ANSI_GREEN + "Printed from callable class.");
+                return "This is the callable result";
+            }
+        });
+
+        try {
+            System.out.println(future.get());
+        } catch (ExecutionException e) {
+            System.out.println("ExecutionException");
+        } catch (InterruptedException e1) {
+            System.out.println("Thread running the task was interrupted.");
+        }
+
+        executorService.shutdown();
     }
 }
 
@@ -86,7 +107,6 @@ class MyConsumer implements Runnable {
         int counter = 0;
 
         while (true) {
-//            bufferLock.lock();
             if (bufferLock.tryLock()) {
                 try {
                     if (buffer.isEmpty()) {
