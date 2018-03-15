@@ -1,14 +1,12 @@
 package com.sturc;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        int size = 10;
+/*        int size = 10;
         int [] testArray = new int[size];
         Random gen = new Random();
         Scanner scanner = new Scanner(System.in);
@@ -26,8 +24,7 @@ public class Main {
         System.out.print("Enter number:");
         int key = scanner.nextInt();
         int res = binSearch.search(testArray, key);
-        System.out.println("res = " + res);
-
+        System.out.println("res = " + res);*/
 
     }
 
@@ -43,5 +40,47 @@ public class Main {
 
         return Arrays.stream(integers).parallel() // call parallel to get as much bang for the buck on a "large" array
                 .filter(n -> Math.abs(n) % 2 == mod).findFirst().getAsInt();
+    }
+
+    private static int sortDesc(final int num) {
+
+        String[] array = String.valueOf(num).split("");
+        Arrays.sort(array, Collections.reverseOrder());
+
+        return Integer.valueOf(String.join("", array));
+
+/*        return Integer.parseInt(String.valueOf(num)
+                .chars()
+                .mapToObj(i -> String.valueOf(Character.getNumericValue(i)))
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.joining()));*/
+    }
+
+
+    public static int findIt(int[] A) {
+
+        int i, count = 0;
+        for (i = 0; i < A.length; i++) {
+            for (int j = 0; j < A.length; j++) {
+                if (A[i] == A[j]) {
+                    count++;
+                }
+            }
+            if (count % 2 == 0) {
+                return A[i];
+            }
+        }
+        return -1;
+
+/*        int xor = 0;
+        for (int i = 0; i < A.length; i++) {
+            xor ^= A[i];
+        }
+        return xor;*/
+    }
+
+    public static int[] minMax(int[] arr) {
+        Arrays.sort(arr);
+        return new int[] {arr[0], arr[arr.length-1]};
     }
 }

@@ -1,5 +1,7 @@
 package com.sturc.Threads.Livelock;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Worker {
 
     private String name;
