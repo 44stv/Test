@@ -26,6 +26,8 @@ public class Main {
         int res = binSearch.search(testArray, key);
         System.out.println("res = " + res);*/
 
+        System.out.println(findUniqueElement(new int[] {1,2,2,2}));
+
     }
 
     static int findUniqueElement(int[] integers) {
@@ -82,5 +84,42 @@ public class Main {
     public static int[] minMax(int[] arr) {
         Arrays.sort(arr);
         return new int[] {arr[0], arr[arr.length-1]};
+    }
+
+    public static String convert(String phrase) {
+
+/*        StringBuilder sb = new StringBuilder();
+
+        if (phrase == null || phrase.isEmpty()) {
+            return null;
+        }
+
+        String[] array = phrase.split(" ");
+        for (String word : array) {
+            word = Character.toUpperCase(word.charAt(0)) + word.substring(1);
+            sb.append(word);
+            sb.append(" ");
+        }
+        return sb.toString().trim();*/
+
+        if(phrase == null || phrase.equals("")) return null;
+
+        char[] array = phrase.toCharArray();
+
+        for(int x = 0; x < array.length; x++) {
+            if(x == 0 || array[x-1] == ' ') {
+                array[x] = Character.toUpperCase(array[x]);
+            }
+        }
+        return new String(array);
+    }
+
+    public static double findUniqueDouble(double array[]) {
+        Arrays.sort(array);
+
+        if (array[0] == array[1]) {
+            return array[array.length-1];
+        } else
+            return array[0];
     }
 }
