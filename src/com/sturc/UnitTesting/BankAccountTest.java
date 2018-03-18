@@ -6,7 +6,9 @@ public class BankAccountTest {
 
     @org.junit.Test
     public void deposit() {
-        fail("Yet to be implemented");
+        BankAccount account = new BankAccount("Stas", "Stas", 1000.0, BankAccount.CHECKING);
+        double balance = account.deposit(200.0, true);
+        assertEquals(1200.0, balance, 0);
     }
 
     @org.junit.Test
@@ -15,7 +17,22 @@ public class BankAccountTest {
     }
 
     @org.junit.Test
-    public void getBalance() {
-        fail("Yet to be implemented");
+    public void getBalance_deposit() {
+        BankAccount account = new BankAccount("Stas", "Stas", 1000.0, BankAccount.CHECKING);
+        account.deposit(200.0, true);
+        assertEquals(1200.0, account.getBalance(), 0);
+    }
+
+    @org.junit.Test
+    public void getBalance_withdraw() {
+        BankAccount account = new BankAccount("Stas", "Stas", 1000.0, BankAccount.CHECKING);
+        account.withdraw(200.0, true);
+        assertEquals(800.0, account.getBalance(), 0);
+    }
+
+    @org.junit.Test
+    public void isChecking_true() {
+        BankAccount account = new BankAccount("Stas", "Stas", 1000.0, BankAccount.CHECKING);
+        assertTrue("The account is not a checking account.", account.isChecking());
     }
 }

@@ -26,8 +26,6 @@ public class Main {
         int res = binSearch.search(testArray, key);
         System.out.println("res = " + res);*/
 
-        System.out.println(findUniqueElement(new int[] {1,2,2,2}));
-
     }
 
     static int findUniqueElement(int[] integers) {
@@ -122,4 +120,5 @@ public class Main {
         } else
             return array[0];
     }
+
 }
