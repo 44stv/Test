@@ -29,11 +29,11 @@ public class Echoer extends Thread {
                     break;
                 }
 
-                try {
+/*                try {
                     Thread.sleep(15000);
                 } catch (InterruptedException e) {
                     System.out.println("Thread interrupted.");
-                }
+                }*/
 
                 output.println("Echo from server: " + echoString);
             }
