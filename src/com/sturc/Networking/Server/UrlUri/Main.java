@@ -11,12 +11,28 @@ public class Main {
 
         try {
 //            URI uri = new URI("http://username:password@myserver.com:5000/catalogue/phones?os=android#samsung");
-            URI baseURI = new URI("http://username:password@myserver.com:5000");
-            URI uri = new URI("/catalogue/phones?os=android#samsung");
-            URI resolvedURI = baseURI.resolve(uri);
 
-            URL url = resolvedURI.toURL();
-            System.out.println("URL = " + uri);
+            // usually constant
+            URI baseURI = new URI("http://username:password@myserver.com:5000");
+            URI uri1 = new URI("/catalogue/phones?os=android#samsung");
+            URI uri2 = new URI("/catalogue/tv?manufacturer=samsung");
+            URI uri3 = new URI("/stores/locations?zip=12345");
+
+            URI resolvedURI1 = baseURI.resolve(uri1);
+            URI resolvedURI2 = baseURI.resolve(uri2);
+            URI resolvedURI3 = baseURI.resolve(uri3);
+
+            URL url1 = resolvedURI1.toURL();
+            System.out.println("URL1 = " + url1);
+            URL url2 = resolvedURI2.toURL();
+            System.out.println("URL2 = " + url2);
+            URL url3 = resolvedURI3.toURL();
+            System.out.println("URL3 = " + url3);
+
+            URI relativizedURI = baseURI.relativize(resolvedURI2);
+            System.out.println("Relative URI = " + relativizedURI);
+
+
 /*            System.out.println("Scheme = " + uri.getScheme());
             System.out.println("Scheme-specific part = " + uri.getSchemeSpecificPart());
             System.out.println("Authority = " + uri.getAuthority());
