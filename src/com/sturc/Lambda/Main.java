@@ -7,10 +7,6 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        new Thread(()-> {
-            System.out.println("Printing from Runnable");
-            System.out.println("Line 2");
-        }).start();
 
         Employee john = new Employee("John", 25);
         Employee tim = new Employee("Tim", 26);
@@ -24,12 +20,20 @@ public class Main {
         employees.add(snow);
 
 
+
         Collections.sort(employees, (employee1, employee2) ->
                 employee1.getName().compareTo(employee2.getName()));
 
-        for (Employee employee : employees) {
-            System.out.println(employee.getName());
-        }
+/*        for (Employee employee : employees) {
+            System.out.print(employee.getName());
+            System.out.println(" " + employee.getAge());
+
+        }*/
+
+        employees.forEach(employee -> {
+            System.out.print(employee.getName());
+            System.out.println(" " + employee.getAge());
+        });
 
         UpperConcat uc = (String s1, String s2) -> {
             String res = s1.toUpperCase() + s2.toUpperCase();
@@ -40,6 +44,7 @@ public class Main {
 
         AnotherClass anotherClass = new AnotherClass();
         String s = anotherClass.doSomething();
+        System.out.println("AnotherClass " + s);
 
     }
 
@@ -82,16 +87,11 @@ class AnotherClass {
 
     public String doSomething() {
 
-/*        UpperConcat uc = (String s1, String s2) -> {
-            System.out.println("Lambda expression`s class is: " + getClass().getSimpleName());
-            String res = s1.toUpperCase() + s2.toUpperCase();
-            return res;
-        };*/
-
         int i = 0;
 
         UpperConcat uc = (String s1, String s2) -> {
             System.out.println("The lambda expression`s class is " + getClass().getSimpleName());
+            System.out.println("i in the lambda = " + i);
             String res = s1.toUpperCase() + s2.toUpperCase();
             return res;
         };
@@ -105,9 +105,25 @@ class AnotherClass {
             }
         };
 */
-
+//        printNumber();
         System.out.println("The AnotherClass class`s name: " + getClass().getSimpleName());
         return Main.doString(uc, "String1", "String2");
 
+    }
+
+    public void printNumber() {
+        int number = 25;
+
+        Runnable r = () -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("The value is: " + number);
+        };
+
+        new Thread(r).start();
     }
 }
