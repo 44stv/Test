@@ -1,4 +1,4 @@
-package com.sturc.Streams;
+package com.sturc.Lambda.Streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
