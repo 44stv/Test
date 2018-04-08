@@ -26,6 +26,15 @@ public class Main {
         int res = binSearch.search(testArray, key);
         System.out.println("res = " + res);*/
 
+        double a, b = 2, c = 2;
+
+        long startTime = System.nanoTime();
+
+        a = Math.atan2(b, c);
+
+        long endTime = System.nanoTime();
+        System.out.println(endTime-startTime);
+
     }
 
     static int findUniqueElement(int[] integers) {
