@@ -2,8 +2,6 @@ package com.sturc;
 
 public class BinarySearch {
 
-
-
     public int search (int [] array, int key) {
         int L = 0, M, R = array.length - 1;
 
