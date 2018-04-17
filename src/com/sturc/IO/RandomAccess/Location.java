@@ -1,4 +1,4 @@
-package com.sturc.IO;
+package com.sturc.IO.RandomAccess;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;

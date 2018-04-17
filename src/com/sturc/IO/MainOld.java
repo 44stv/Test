@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Main {
+public class MainOld {
 
-    private static Locations locations = new Locations();
+    private static LocationsOld locations = new LocationsOld();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
