@@ -24,7 +24,7 @@ public class Location implements Serializable {
     }
 
 
-    protected  void addExit(String direction, int location) {
+    public  void addExit(String direction, int location) {
         exits.put(direction, location);
     }
 

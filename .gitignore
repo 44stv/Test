@@ -88,6 +88,8 @@ fabric.properties
 *.tar.gz
 *.rar
 
+.txt
+
 
 
 ### NetBeans ###

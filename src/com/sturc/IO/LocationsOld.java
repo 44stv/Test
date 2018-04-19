@@ -5,12 +5,12 @@ import java.util.*;
 
 public class LocationsOld implements Map<Integer, LocationOld> {
 
-    private static Map<Integer, LocationOld> Locations = new LinkedHashMap<>();
+    private static Map<Integer, LocationOld> locations = new LinkedHashMap<>();
 
     public static void main(String[] args) throws IOException {
 
         try (ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("locations.dat")))) {
-            for(LocationOld LocationOld : Locations.values()) {
+            for(LocationOld LocationOld : locations.values()) {
                 locFile.writeObject(LocationOld);
             }
         }
@@ -27,7 +27,7 @@ public class LocationsOld implements Map<Integer, LocationOld> {
                     System.out.println("Read Location " + LocationOld.getLocationID() + ": " + LocationOld.getDescription());
                     System.out.println("Found " + LocationOld.getExits().size() + " exits.");
 
-                    Locations.put(LocationOld.getLocationID() ,LocationOld);
+                    locations.put(LocationOld.getLocationID() ,LocationOld);
                 } catch (EOFException e) {
                     eof = true;
                 }
@@ -45,37 +45,37 @@ public class LocationsOld implements Map<Integer, LocationOld> {
 
     @Override
     public int size() {
-        return Locations.size();
+        return locations.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return Locations.isEmpty();
+        return locations.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return Locations.containsKey(key);
+        return locations.containsKey(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return Locations.containsValue(value);
+        return locations.containsValue(value);
     }
 
     @Override
     public LocationOld get(Object key) {
-        return Locations.get(key);
+        return locations.get(key);
     }
 
     @Override
     public LocationOld put(Integer key, LocationOld value) {
-        return Locations.put(key, value);
+        return locations.put(key, value);
     }
 
     @Override
     public LocationOld remove(Object key) {
-        return Locations.remove(key);
+        return locations.remove(key);
     }
 
     @Override
@@ -85,21 +85,21 @@ public class LocationsOld implements Map<Integer, LocationOld> {
 
     @Override
     public void clear() {
-        Locations.clear();
+        locations.clear();
     }
 
     @Override
     public Set<Integer> keySet() {
-        return Locations.keySet();
+        return locations.keySet();
     }
 
     @Override
     public Collection<LocationOld> values() {
-        return Locations.values();
+        return locations.values();
     }
 
     @Override
     public Set<Entry<Integer, LocationOld>> entrySet() {
-        return Locations.entrySet();
+        return locations.entrySet();
     }
 }
