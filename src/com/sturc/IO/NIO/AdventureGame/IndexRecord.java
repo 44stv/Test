@@ -1,4 +1,4 @@
-package com.sturc.IO.NIO;
+package com.sturc.IO.NIO.AdventureGame;
 
 public class IndexRecord {
 
