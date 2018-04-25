@@ -6,6 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
 /*        int size = 10;
         int [] testArray = new int[size];
         Random gen = new Random();
@@ -26,15 +27,27 @@ public class Main {
         int res = binSearch.search(testArray, key);
         System.out.println("res = " + res);*/
 
-        double a, b = 2, c = 2;
+/*        double a, b = 2, c = 2;
 
         long startTime = System.nanoTime();
 
         a = Math.atan2(b, c);
 
         long endTime = System.nanoTime();
-        System.out.println(endTime-startTime);
+        System.out.println(endTime-startTime);*/
 
+/*        int[] unsorted = {32, 39, 21, 45, 23, 3, 2};
+        System.out.println("Array before sort: " + Arrays.toString(unsorted));
+        int[] sorted = bubbleSort(unsorted);*/
+
+        //fibonacciRecursive(5);
+
+/*        for (int i = 1; i <= 5; i++) {
+            System.out.print(fibonacciRecursive(i) + " ");
+        }*/
+
+/*        System.out.println(fibonacciRecursive(10));
+        System.out.println(fibonacciIterative(10));*/
     }
 
     static int findUniqueElement(int[] integers) {
@@ -128,6 +141,44 @@ public class Main {
             return array[array.length-1];
         } else
             return array[0];
+    }
+
+    public static int[] bubbleSort(int[] array) {
+
+        for (int i = 0; i < array.length-1; i++) {
+            for (int j = 1; j < array.length-i; j++) {
+                if (array[j-1] > array[j]) {
+                    int temp = array[j-1];
+                    array[j-1] = array[j];
+                    array[j] = temp;
+                }
+            }
+            System.out.println("array after " + (i+1) + " pass: " + Arrays.toString(array));
+        }
+
+        return array;
+    }
+
+    public static int fibonacciRecursive(int number) {
+        if (number <= 1){
+            return number;
+        }
+
+        return fibonacciRecursive(number-1) + fibonacciRecursive(number-2);
+    }
+
+    public static int fibonacciIterative(int number) {
+
+        if (number <=1) return number;
+        int f1 = 1;
+        int f2 = 1;
+
+        for (int i = 2; i < number; i++) {
+            int temp = f2;
+            f2 += f1;
+            f1 = temp;
+        }
+        return f2;
     }
 
 }

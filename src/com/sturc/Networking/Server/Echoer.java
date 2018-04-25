@@ -10,7 +10,7 @@ public class Echoer extends Thread {
 
     private Socket socket;
 
-    public Echoer(Socket socket) {
+    Echoer(Socket socket) {
         this.socket = socket;
     }
 
@@ -23,19 +23,23 @@ public class Echoer extends Thread {
 
             while (true) {
                 String echoString = input.readLine();
-                System.out.println("Received client input: " + echoString);
+                System.out.println("Received message  \"" + echoString + "\" from " + this.getName());
+
                 if (echoString.equals("exit")) {
-                    System.out.println("Client disconnected.");
+                    System.out.println(this.getName() + " disconnected.");
                     break;
                 }
 
-/*                try {
-                    Thread.sleep(15000);
-                } catch (InterruptedException e) {
-                    System.out.println("Thread interrupted.");
-                }*/
+                if (echoString.equals("set priority")) {
+                    System.out.println("Old priority = " + this.getPriority());
 
-                output.println("Echo from server: " + echoString);
+                    int newPriority = Integer.valueOf(input.readLine());
+                    this.setPriority(newPriority);
+                    System.out.println("New priority = " + newPriority);
+                    echoString = "server set priority to " + newPriority;
+                }
+
+                output.println("Message from server: " + echoString);
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

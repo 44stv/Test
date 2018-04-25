@@ -8,14 +8,20 @@ public class Main {
 
     public static void main(String[] args) {
 
+        int clientNumber = 0;
+
         try (ServerSocket serverSocket = new ServerSocket(5000)) {
 
+            System.out.println("Server started.");
+
             while (true) {
-/*                Socket socket = serverSocket.accept();
+                clientNumber++;
+                Socket socket = serverSocket.accept();
                 Echoer echoer = new Echoer(socket);
-                echoer.start();*/
-                new Echoer (serverSocket.accept()).start();
-                System.out.println("Client connected.");
+                echoer.setName("Client " + clientNumber);
+                echoer.start();
+//                new Echoer (serverSocket.accept()).start();
+                System.out.println(echoer.getName() + " connected.");
             }
 
         } catch (IOException e) {
