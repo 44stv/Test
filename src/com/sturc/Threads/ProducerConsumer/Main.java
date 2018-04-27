@@ -12,25 +12,26 @@ public class Main {
     public static final String EOF = "EOF";
 
     public static void main(String[] args) {
-        ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<>(6);
+        ArrayBlockingQueue<String> buffer = new ArrayBlockingQueue<>(10);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        MyProducer producer = new MyProducer(buffer, ANSI_BLUE);
-        MyConsumer consumer1 = new MyConsumer(buffer, ANSI_RED);
-        MyConsumer consumer2 = new MyConsumer(buffer, ANSI_PURPLE);
+        MyProducer producer = new MyProducer(buffer, ANSI_WHITE);
+        MyConsumer consumer1 = new MyConsumer(buffer, ANSI_WHITE);
+        MyConsumer consumer2 = new MyConsumer(buffer, ANSI_WHITE);
+        MyConsumer consumer3 = new MyConsumer(buffer, ANSI_WHITE);
 
         executorService.execute(producer);
         executorService.execute(consumer1);
         executorService.execute(consumer2);
+        executorService.execute(consumer3);
 
-        Future<String> future = executorService.submit(new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                System.out.println(ANSI_GREEN + "Printed from callable class.");
-                return "This is the callable result";
-            }
-        });
+        Callable<String> test = () -> {
+            System.out.println(ANSI_WHITE + "Printed from callable class.");
+            return "This is the callable result";
+        };
+
+        Future<String> future = executorService.submit(test);
 
         try {
             System.out.println(future.get());
@@ -57,11 +58,15 @@ class MyProducer implements Runnable{
 
     public void run() {
         Random random = new Random();
-        String[] nums = {"1", "2", "3", "4", "5"};
+        String[] nums = new String[10];
+
+        for (int i = 1; i <= 10; i++) {
+            nums[i-1] = "" + i;
+        }
 
         for (String num : nums) {
             try {
-                System.out.println(color + "Adding " + num);
+                System.out.println(color + "Producer adding " + num);
                 buffer.put(num);
 
                 Thread.sleep(random.nextInt(1000));
@@ -83,10 +88,13 @@ class MyConsumer implements Runnable {
 
     private ArrayBlockingQueue<String> buffer;
     private String color;
+    private static int number = 0;
+    private int num;
 
     public MyConsumer(ArrayBlockingQueue<String> buffer, String color) {
         this.buffer = buffer;
         this.color = color;
+        num = ++number;
     }
 
     public void run () {
@@ -101,7 +109,7 @@ class MyConsumer implements Runnable {
                         System.out.println(color + "Exiting.");
                         break;
                     } else {
-                        System.out.println(color + "Removed " + buffer.take());
+                        System.out.println(color + "Consumer " + num + " removed " + buffer.take());
                     }
                 } catch (InterruptedException e) {
 

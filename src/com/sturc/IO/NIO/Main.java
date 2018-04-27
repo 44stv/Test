@@ -1,9 +1,6 @@
 package com.sturc.IO.NIO;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.FileSystems;
@@ -20,15 +17,45 @@ public class Main {
              FileChannel binChannel = binFile.getChannel()) {
 
             ByteBuffer buffer = ByteBuffer.allocate(100);
+
+            //chained write to file
             byte[] outputBytes = "Hello world!".getBytes();
+            byte[] outputBytes2 = "Another string!".getBytes();
+            buffer.put(outputBytes).putInt(44).putInt(-44).put(outputBytes2).putInt(1000);
+            buffer.flip();
+            binChannel.write(buffer);
+
+/*            byte[] outputBytes = "Hello world!".getBytes();
             buffer.put(outputBytes);
+            long int1Pos = outputBytes.length;
             buffer.putInt(44);
+            long int2Pos = int1Pos + Integer.BYTES;
             buffer.putInt(-44);
             byte[] outputBytes2 = "Another string!".getBytes();
             buffer.put(outputBytes2);
+            long int3Pos = int2Pos + Integer.BYTES + outputBytes2.length;
             buffer.putInt(1000);
-            buffer.flip();
+            buffer.flip();*/
+
             binChannel.write(buffer);
+
+
+            RandomAccessFile ra = new RandomAccessFile("data.dat", "rwd");
+            FileChannel channel = ra.getChannel();
+
+            ByteBuffer readBuffer = ByteBuffer.allocate(100);
+            channel.read(readBuffer);
+            readBuffer.flip();
+            byte[] inputString = new byte[outputBytes.length];
+            readBuffer.get(inputString);
+            System.out.println("input String = " + new String(inputString));
+            System.out.println("int 1 = " + readBuffer.getInt());
+            System.out.println("int 2 = " + readBuffer.getInt());
+            byte[] inputString2 = new byte[outputBytes2.length];
+            readBuffer.get(inputString2);
+            System.out.println("input String2 = " + new String(inputString2));
+            System.out.println("int 3 = " + readBuffer.getInt());
+
 
 
             /*ByteBuffer buffer = ByteBuffer.allocate(outputBytes.length);
@@ -82,16 +109,6 @@ public class Main {
 
             channel.close();
             ra.close();*/
-
-/*            RandomAccessFile ra = new RandomAccessFile("data.dat", "rwd");
-            byte[] b = new byte[outputBytes.length];
-            ra.read(b);
-            System.out.println(new String(b));
-
-            long int1 = ra.readInt();
-            long int2 = ra.readInt();
-            System.out.println("int1 = " + int1);
-            System.out.println("int2 = " + int2);*/
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -22,7 +22,6 @@ public class Main {
                 bankAccount.deposit(203.75);
                 bankAccount.withdraw(100.0);
                 System.out.println("Thread 2 (deposit 203.75 and withdraw 100): " + bankAccount.getBalance());
-
             }
         }).start();
     }
