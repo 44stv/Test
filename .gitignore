@@ -88,8 +88,10 @@ fabric.properties
 *.tar.gz
 *.rar
 
-.txt
-.dat
+/Examples
+*.txt
+*.dat
+Test.iml
 
 
 
