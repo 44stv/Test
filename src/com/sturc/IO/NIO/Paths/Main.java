@@ -72,6 +72,14 @@ public class Main {
         for (FileStore store : stores) {
             System.out.println(store + " " + store.type());
         }
+
+        System.out.println("Walking tree dir2");
+        Path dir2Path = FileSystems.getDefault().getPath("FileTree" + File.separator + "Dir2");
+        try {
+            Files.walkFileTree(dir2Path, new PrintNames());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void printFile(Path path) {
