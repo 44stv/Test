@@ -14,14 +14,16 @@ public class Main {
 
             System.out.println("Server started.");
 
+//            ExecutorService executorService = Executors.newFixedThreadPool(15);
+
             while (true) {
                 clientNumber++;
                 Socket socket = serverSocket.accept();
-                Echoer echoer = new Echoer(socket);
-                echoer.setName("Client " + clientNumber);
-                echoer.start();
+                Echoer newClient = new Echoer(socket);
+                newClient.setName("Client " + clientNumber);
+                newClient.start();
 //                new Echoer (serverSocket.accept()).start();
-                System.out.println(echoer.getName() + " connected.");
+                System.out.println(newClient.getName() + " connected.");
             }
 
         } catch (IOException e) {

@@ -31,12 +31,33 @@ public class Echoer extends Thread {
                 }
 
                 if (echoString.equals("set priority")) {
-                    System.out.println("Old priority = " + this.getPriority());
+                    System.out.print("Old priority = " + this.getPriority());
 
                     int newPriority = Integer.valueOf(input.readLine());
                     this.setPriority(newPriority);
-                    System.out.println("New priority = " + newPriority);
+                    System.out.println(". New priority = " + newPriority + " for " + this.getName());
                     echoString = "server set priority to " + newPriority;
+                }
+
+                if (echoString.equals("calc")) {
+                    String figure = input.readLine();
+                    System.out.println("Received figure \"" + figure + "\" from " + this.getName());
+
+                    if (figure.equals("circle")){
+                        double radius = Double.valueOf(input.readLine());
+                        double area = radius * radius * Math.PI;
+                        area = roundDouble(area);
+                        System.out.println("Calculated circle area " + area + " for " + this.getName());
+                        echoString = "Circle area = " + area;
+                    }
+
+                    if (figure.equals("square")){
+                        double length = Double.valueOf(input.readLine());
+                        double area = Math.pow(length, 2);
+                        area = roundDouble(area);
+                        System.out.println("Calculated square area " + area + " for " + this.getName());
+                        echoString = "Square area = " + area;
+                    }
                 }
 
                 output.println("Message from server: " + echoString);
@@ -50,5 +71,9 @@ public class Echoer extends Thread {
                 System.out.println("Exception with closing socket.");
             }
         }
+    }
+
+    private double roundDouble(double number) {
+        return (double) Math.round(number * 100) / 100;
     }
 }

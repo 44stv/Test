@@ -36,16 +36,29 @@ public class Main {
                     output.println(newPriority);
                 }
 
+                if (echoString.equals("calc")) {
+                    System.out.print("Enter figure:");
+                    String figure = scanner.nextLine();
+                    output.println(figure);
 
+                    if (figure.equals("circle")) {
+                        System.out.print("Enter radius: ");
+                        double radius = Double.parseDouble(scanner.nextLine());
+                        output.println(radius);
+                    }
+                    if (figure.equals("square")) {
+                        System.out.print("Enter length: ");
+                        double length = Double.parseDouble(scanner.nextLine());
+                        output.println(length);
+                    }
+                }
 
                 if (!echoString.equals("exit")) {
                     response = input.readLine();
                     System.out.println(response);
                 }
 
-
             } while (!echoString.equals("exit"));
-
 
         } catch (SocketTimeoutException e) {
             System.out.println("The socket timed out.");
