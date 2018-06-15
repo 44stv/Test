@@ -1,5 +1,8 @@
 language: java
 
+script:
+- ./mvnw clean install
+
 notifications:
   email:
   - s.turchynskyi@gmail.com
