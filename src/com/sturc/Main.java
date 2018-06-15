@@ -6,6 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        StringBuilder builder = new StringBuilder();
+
+        for (String string : args) {
+            builder.append(string);
+        }
+        System.out.println(builder.toString());
 
 /*        int size = 10;
         int [] testArray = new int[size];
@@ -50,6 +56,15 @@ public class Main {
         System.out.println(fibonacciIterative(10));*/
     }
 
+
+    public static String createString(double fl, int i, String str) {
+        return String.format("This is real number %f, integer number %d, string %s",fl, i, str);
+    }
+
+
+
+
+
     static int findUniqueElement(int[] integers) {
         // Since we are warned the array may be very large, we should avoid counting values any more than we need to.
 
@@ -71,11 +86,12 @@ public class Main {
 
         return Integer.valueOf(String.join("", array));
 
-/*        return Integer.parseInt(String.valueOf(num)
-                .chars()
-                .mapToObj(i -> String.valueOf(Character.getNumericValue(i)))
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.joining()));*/
+//        return Integer.parseInt(String.valueOf(num)
+//                .chars()
+//                .mapToObj(i -> String.valueOf(Character.getNumericValue(i)))
+//                .sorted(Comparator.reverseOrder())
+//                .collect(Collectors.joining()));
+
     }
 
 
@@ -103,7 +119,7 @@ public class Main {
 
     public static int[] minMax(int[] arr) {
         Arrays.sort(arr);
-        return new int[] {arr[0], arr[arr.length-1]};
+        return new int[]{arr[0], arr[arr.length - 1]};
     }
 
     public static String convert(String phrase) {
@@ -122,56 +138,57 @@ public class Main {
         }
         return sb.toString().trim();*/
 
-        if(phrase == null || phrase.equals("")) return null;
+        if (phrase == null || phrase.equals("")) return null;
 
         char[] array = phrase.toCharArray();
 
-        for(int x = 0; x < array.length; x++) {
-            if(x == 0 || array[x-1] == ' ') {
+        for (int x = 0; x < array.length; x++) {
+            if (x == 0 || array[x - 1] == ' ') {
                 array[x] = Character.toUpperCase(array[x]);
             }
         }
         return new String(array);
     }
 
-    public static double findUniqueDouble(double array[]) {
+    public static double findUniqueDouble(double[] array) {
         Arrays.sort(array);
 
         if (array[0] == array[1]) {
-            return array[array.length-1];
+            return array[array.length - 1];
         } else
             return array[0];
     }
 
     public static int[] bubbleSort(int[] array) {
 
-        for (int i = 0; i < array.length-1; i++) {
-            for (int j = 1; j < array.length-i; j++) {
-                if (array[j-1] > array[j]) {
-                    int temp = array[j-1];
-                    array[j-1] = array[j];
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = 1; j < array.length - i; j++) {
+                if (array[j - 1] > array[j]) {
+                    int temp = array[j - 1];
+                    array[j - 1] = array[j];
                     array[j] = temp;
                 }
             }
-            System.out.println("array after " + (i+1) + " pass: " + Arrays.toString(array));
+            System.out.println("array after " + (i + 1) + " pass: " + Arrays.toString(array));
         }
 
         return array;
     }
 
     public static int fibonacciRecursive(int number) {
-        if (number <= 1){
+        if (number <= 1) {
             return number;
         }
 
-        return fibonacciRecursive(number-1) + fibonacciRecursive(number-2);
+        return fibonacciRecursive(number - 1) + fibonacciRecursive(number - 2);
     }
 
     public static int fibonacciIterative(int number) {
-
-        if (number <=1) return number;
+        if (number <= 1) {
+            return number;
+        }
         int f1 = 1;
-        int f2 = 1;
+        int f2 = 2;
 
         for (int i = 2; i < number; i++) {
             int temp = f2;
